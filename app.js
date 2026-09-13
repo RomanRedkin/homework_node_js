@@ -4,6 +4,42 @@ import moment from "moment"
 
 const app = express()
 
+const HOST = '127.0.0.1';
+const PORT = 3235;
+const PORT1 = 3435;
+
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: "ok" 
+    });
+});
+
+app.get('/stats', (req, res) => {
+    res.status(200).json({
+        "uptime": process.uptime(),
+        "nodeVersion": process.version,
+        "timestamp": moment().format()
+    });
+});
+
+app.listen(PORT, HOST, () => {
+    console.log(`http://${HOST}:${PORT}/health`)
+})
+
+app.listen(PORT1, HOST, () => {
+    console.log(`http://${HOST}:${PORT1}/stats`)
+})
+
+
+
+
+
+
+
+
+
+
+
 app.get('/timestamp', (req, res) => {
     function getCurrentDate() {
         return moment().format("MMMM Do YYYY");
@@ -16,13 +52,6 @@ app.get('/timestamp', (req, res) => {
 app.listen(2323, () => {
     console.log('Server is running on /timestamp:2323')
 })
-
-
-
-
-
-
-
 
 
 
